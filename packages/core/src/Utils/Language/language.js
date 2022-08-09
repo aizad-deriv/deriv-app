@@ -21,13 +21,13 @@ export const changeLanguage = (key, changeCurrentLanguage) => {
 
     WS.setSettings(request).then(() => {
         const new_url = new URL(window.location.href);
-        if (key === 'EN') {
-            new_url.searchParams.delete('lang');
-        } else {
-            new_url.searchParams.set('lang', key);
-        }
-        window.history.pushState({ path: new_url.toString() }, '', new_url.toString());
         changeLanguageTranslation(key, () => {
+            if (key === 'EN') {
+                new_url.searchParams.delete('lang');
+            } else {
+                new_url.searchParams.set('lang', key);
+            }
+            window.history.pushState({ path: new_url.toString() }, '', new_url.toString());
             changeCurrentLanguage(key);
             BinarySocket.closeAndOpenNewConnection(key);
         });

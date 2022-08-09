@@ -3,6 +3,17 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { isProduction } from '../../../shared/src/utils/config/config';
 import withI18n from '../components';
+import ach from '../translations/ach.json';
+import es from '../translations/es.json';
+import fr from '../translations/fr.json';
+import id from '../translations/id.json';
+import it from '../translations/it.json';
+import pl from '../translations/pl.json';
+import pt from '../translations/pt.json';
+import ru from '../translations/ru.json';
+import vi from '../translations/vi.json';
+import zh_cn from '../translations/zh_cn.json';
+import zh_tw from '../translations/zh_tw.json';
 
 const LANGUAGE_KEY = 'i18n_language';
 const DEFAULT_LANGUAGE = 'EN';
@@ -82,13 +93,28 @@ const loadLanguageJson = async lang => {
         const response = await import(/* webpackChunkName: "[request]" */ `../translations/${lang.toLowerCase()}.json`);
 
         const lang_json = response;
+        // console.log(lang_json);
+        // console.dir(i18n);
+        // console.log(i18n.getResourceBundle(lang));
         i18n.addResourceBundle(lang, 'translations', lang_json);
         document.documentElement.setAttribute('lang', lang);
     }
 };
-
 const initial_language = getInitialLanguage();
 const i18n_config = {
+    resources: {
+        ACH: { translations: { ...ach } },
+        ES: { translations: { ...es } },
+        FR: { translations: { ...fr } },
+        ID: { translations: { ...id } },
+        IT: { translations: { ...it } },
+        PL: { translations: { ...pl } },
+        PT: { translations: { ...pt } },
+        RU: { translations: { ...ru } },
+        VI: { translations: { ...vi } },
+        ZH_CN: { translations: { ...zh_cn } },
+        ZH_TW: { translations: { ...zh_tw } },
+    },
     react: {
         hashTransKey(defaultValue) {
             return crc32(defaultValue);
