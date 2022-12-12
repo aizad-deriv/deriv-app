@@ -9,10 +9,16 @@ import 'Sass/app/modules/acuity-download.scss';
 type TAcuityDownloadModal = {
     is_acuity_modal_open: boolean;
     is_eu: boolean;
+    current_language: string;
     setIsAcuityModalOpen: (value: boolean) => void;
 };
 
-const AcuityDownloadModal = ({ is_acuity_modal_open, is_eu, setIsAcuityModalOpen }: TAcuityDownloadModal) => {
+const AcuityDownloadModal = ({
+    is_acuity_modal_open,
+    is_eu,
+    setIsAcuityModalOpen,
+    current_language,
+}: TAcuityDownloadModal) => {
     const closeModal = () => setIsAcuityModalOpen(false);
 
     const openDownloadLink = () => {
@@ -25,12 +31,17 @@ const AcuityDownloadModal = ({ is_acuity_modal_open, is_eu, setIsAcuityModalOpen
     };
 
     const openGuide = () => {
-        window.open(
-            is_eu ? 'https://deriv.link/3GXrhz6' : 'https://deriv.link/3Vk37Ds',
-            '_blank',
-            'noopener,noreferrer'
-        );
+        window.open(getLink(current_language), '_blank', 'noopener,noreferrer');
         closeModal();
+    };
+
+    const getLink = (language: string): string => {
+        if (language === 'PT') {
+            return 'https://docs.google.com/document/d/15GhxU-G6ASkfXr3s3bazyXhflUuRrRYN/edit#heading=h.gjdgxs';
+        } else if (language === 'ES') {
+            return 'https://docs.google.com/document/d/1t-FMeTgRp2S-a5z21pLQyPgTI_sbILV_/edit#heading=h.gjdgxs';
+        }
+        return 'https://docs.google.com/document/d/1zQsP6z6I60dJCg7PsM7gD2LQ4CEWYX-L/edit?usp=sharing&ouid=102174637690694801870&rtpof=true&sd=true';
     };
 
     return (
@@ -92,8 +103,9 @@ const AcuityDownloadModal = ({ is_acuity_modal_open, is_eu, setIsAcuityModalOpen
     );
 };
 
-export default connect(({ client, ui }: RootStore) => ({
+export default connect(({ client, ui, common }: RootStore) => ({
     is_acuity_modal_open: ui.is_acuity_modal_open,
     is_eu: client.is_eu,
+    current_language: common.current_language,
     setIsAcuityModalOpen: ui.setIsAcuityModalOpen,
 }))(AcuityDownloadModal);
