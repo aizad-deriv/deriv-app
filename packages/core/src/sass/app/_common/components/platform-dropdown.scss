@@ -21,8 +21,8 @@
             background-color: var(--general-main-2);
             overflow-x: hidden;
             overflow-y: auto;
-            flex-direction: column;
             flex-wrap: nowrap;
+            flex-direction: column;
 
             &-platform {
                 width: calc(100% - 1.6rem);
