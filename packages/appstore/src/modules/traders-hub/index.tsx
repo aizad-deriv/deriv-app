@@ -19,7 +19,14 @@ const TradersHub = () => {
     const { traders_hub, client, ui } = useStores();
     const { notification_messages_ui: Notifications } = ui;
     const { is_landing_company_loaded, is_logged_in, is_switching, is_logging_in, is_account_setting_loaded } = client;
-    const { selected_platform_type, setTogglePlatformType, is_tour_open, content_flag, is_eu_user } = traders_hub;
+    const {
+        selected_platform_type,
+        setTogglePlatformType,
+        is_tour_open,
+        content_flag,
+        is_eu_user,
+        setSuccessWalletsMigrated,
+    } = traders_hub;
     const traders_hub_ref = React.useRef() as React.MutableRefObject<HTMLDivElement>;
 
     const can_show_notify = !is_switching && !is_logging_in && is_account_setting_loaded && is_landing_company_loaded;
@@ -85,6 +92,8 @@ const TradersHub = () => {
             >
                 {can_show_notify && <Notifications />}
                 <div id='traders-hub' className='traders-hub' ref={traders_hub_ref}>
+                    {/* TODO: Update logic when BE API is integrated [Wallets] */}
+                    <button onClick={() => setSuccessWalletsMigrated(true)}>See Success Notification</button>
                     <WalletHeader account_type='demo' />
                     <WalletHeader currency='AUD' shortcode='svg' />
                     <WalletHeader currency='EUR' shortcode='svg' is_open_wallet={true} />

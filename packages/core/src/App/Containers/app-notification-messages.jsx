@@ -138,7 +138,6 @@ const AppNotificationMessages = ({
                   'has_changed_two_fa',
                   'svg_needs_poi',
                   'svg_poi_expired',
-                  'success_wallets_upgrade',
               ].includes(message.key) || message.type === 'p2p_completed_order'
             : true;
 
