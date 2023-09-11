@@ -21,7 +21,7 @@ import MT5TradeModal from './mt5-trade-modal';
 import CFDDbviOnboarding from './cfd-dbvi-onboarding';
 import CFDDownloadContainer from '../Components/cfd-download-container';
 import CFDPasswordManagerModal from './cfd-password-manager-modal';
-import CFDPasswordModal from './cfd-password-modal';
+import CFDPasswordModal from './cfd-password-modal/cfd-password-modal';
 import CFDServerErrorDialog from './cfd-server-error-dialog';
 import CFDTopUpDemoModal from './cfd-top-up-demo-modal';
 import CFDResetPasswordModal from './cfd-reset-password-modal';
@@ -36,7 +36,8 @@ import { CFDRealAccountDisplay } from '../Components/cfd-real-account-display';
 import { observer, useStore } from '@deriv/stores';
 import { TCFDPasswordReset } from './props.types';
 import { useCfdStore } from '../Stores/Modules/CFD/Helpers/useCfdStores';
-import { TTradingPlatformAccounts } from 'Components/props.types';
+import { TCategory, TType } from '../types/cfd-store.types';
+import { TTradingPlatformAccounts } from '../Components/props.types';
 
 declare module 'react' {
     interface HTMLAttributes<T> extends React.AriaAttributes, React.DOMAttributes<T> {
@@ -68,8 +69,8 @@ const LoadTab = ({ children, is_loading, loading_component, ...props }: TLoadTab
 };
 
 type TOpenAccountTransferMeta = {
-    category: string;
-    type?: string;
+    category: TCategory;
+    type?: TType;
 };
 
 type TMt5StatusServerType = {

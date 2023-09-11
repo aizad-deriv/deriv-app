@@ -1,7 +1,7 @@
 import { DetailsOfEachMT5Loginid, Mt5NewAccount, VerifyEmailResponse } from '@deriv/api-types';
-import { TTradingPlatformAvailableAccount } from 'Components/props.types';
-import { TCFDPasswordFormValues } from 'Containers/cfd-password-modal';
-import { TDerivezCompanies, TDxCompanies, TMtCompanies } from 'Stores/Modules/CFD/Helpers/cfd-config';
+import { TTradingPlatformAvailableAccount } from '../Components/props.types';
+import { TCFDPasswordFormValues } from '../Containers/props.types';
+import { TDerivezCompanies, TDxCompanies, TMtCompanies } from '../Stores/Modules/CFD/Helpers/cfd-config';
 import { FormikHelpers } from 'formik';
 
 type TStoreProofOfAddressArgs = {
@@ -11,11 +11,14 @@ type TStoreProofOfAddressArgs = {
     };
 };
 
+export type TCategory = 'real' | 'demo';
+export type TType = 'financial' | 'all' | 'synthetic';
+
 export type TCFDStore = {
     setMT5TradeAccount: <T>(arg: T) => void;
     toggleCFDVerificationModal: () => void;
     setJurisdictionSelectedShortcode: (shortcode: string) => void;
-    setAccountType: (account_type: { category: string; type?: string }) => void;
+    setAccountType: (account_type: { category: TCategory; type?: TType }) => void;
     dxtrade_tokens: {
         demo: string;
         real: string;
@@ -31,8 +34,8 @@ export type TCFDStore = {
     real_swapfree_accounts_existing_data: DetailsOfEachMT5Loginid & DetailsOfEachMT5Loginid[];
     real_financial_accounts_existing_data: DetailsOfEachMT5Loginid & DetailsOfEachMT5Loginid[];
     account_type: {
-        type: string;
-        category: string;
+        type: TType;
+        category: TCategory;
     };
     jurisdiction_selected_shortcode: string;
     toggleJurisdictionModal: () => void;

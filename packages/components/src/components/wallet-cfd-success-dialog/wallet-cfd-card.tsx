@@ -7,40 +7,7 @@ import { TWalletCFDCard } from './wallet-cfd-success-dialog';
 import './wallet-cfd-card.scss';
 
 const WalletCFDCard = ({ wallet }: { wallet: TWalletCFDCard }) => {
-    const { currency, gradient_header_class, icon, is_demo, type } = wallet;
-
-    // TODO: Update with other platform and CFDs
-    let app_icon = '';
-    switch (type) {
-        case 'synthetic':
-            app_icon = 'IcRebrandingDmt5Dashboard';
-            break;
-        case 'all':
-            app_icon = 'IcRebrandingMt5SwapFree';
-            break;
-        case 'financial':
-            app_icon = 'IcRebrandingMt5FinancialDashboard';
-            break;
-        default:
-            app_icon = '';
-            break;
-    }
-
-    let account_title = '';
-    switch (type) {
-        case 'synthetic':
-            account_title = 'MT5 Derived';
-            break;
-        case 'all':
-            account_title = 'MT5 SwapFree';
-            break;
-        case 'financial':
-            account_title = 'MT5 Financial';
-            break;
-        default:
-            account_title = '';
-            break;
-    }
+    const { app_icon, account_title, currency, gradient_header_class, icon, is_demo, type } = wallet;
 
     return (
         <div className='wallet-cfd-card'>
@@ -49,7 +16,6 @@ const WalletCFDCard = ({ wallet }: { wallet: TWalletCFDCard }) => {
                 <div className='wallet-cfd-card__icon'>
                     <AppLinkedWithWalletIcon
                         app_icon={app_icon}
-                        app_type='cfd'
                         gradient_class={gradient_header_class}
                         hide_watermark
                         type={is_demo ? 'demo' : 'fiat'}

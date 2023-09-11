@@ -8,6 +8,8 @@ import { localize } from '@deriv/translations';
 import './wallet-cfd-success-dialog.scss';
 
 export type TWalletCFDCard = {
+    app_icon: string;
+    account_title: string;
     currency: string;
     gradient_header_class: string;
     icon: string;
@@ -19,7 +21,7 @@ type TWalletCFDSuccessDialog = {
     header: string;
     is_demo?: boolean;
     is_open: boolean;
-    message: string;
+    message: React.ReactNode;
     onSubmit?: () => void;
     submit_button_text?: string;
     toggleModal?: () => void;

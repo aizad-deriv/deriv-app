@@ -1,48 +1,42 @@
 import { useMemo } from 'react';
 import useFetch from '../useFetch';
+import useActiveAccount from './useActiveAccount';
 
-/** A custom hook that gets the list of created other CFD accounts. */
-const useTradingPlatformAccounts = () => {
-    const { data: derivez_accounts, ...derivez_rest } = useFetch('trading_platform_accounts', {
-        payload: { platform: 'derivez' },
+/** @description This hook is used to get all the available MT5 accounts. */
+const useTradingPlatformAvailableAccounts = () => {
+    const { data: active_account } = useActiveAccount();
+
+    const { data: mt5_available_accounts, ...rest } = useFetch('trading_platform_available_accounts', {
+        payload: { platform: 'mt5' },
     });
-    const { data: dxtrade_accounts, ...dxtrade_rest } = useFetch('trading_platform_accounts', {
-        payload: { platform: 'dxtrade' },
-    });
 
-    /** Adding neccesary properties to derivez accounts */
-    const modified_derivez_accounts = useMemo(
+    const modified_mt5_available_accounts = useMemo(
         () =>
-            derivez_accounts?.trading_platform_accounts?.map(account => ({
-                ...account,
-                loginid: account.login,
-            })),
-        [derivez_accounts?.trading_platform_accounts]
+            mt5_available_accounts?.trading_platform_available_accounts?.map(account => {
+                return {
+                    ...account,
+                    account_type: active_account?.is_virtual ? 'demo' : account.market_type,
+                };
+            }),
+        [active_account?.is_virtual, mt5_available_accounts?.trading_platform_available_accounts]
     );
 
-    /** Adding neccesary properties to dxtrade accounts */
-    const modified_dxtrade_accounts = useMemo(
-        () =>
-            dxtrade_accounts?.trading_platform_accounts?.map(account => ({
-                ...account,
-                loginid: account.account_id,
-            })),
-        [dxtrade_accounts?.trading_platform_accounts]
-    );
-
-    const data = useMemo(
-        () => ({
-            dxtrade_accounts: modified_dxtrade_accounts || [],
-            derivez_accounts: modified_derivez_accounts || [],
-        }),
-        [modified_dxtrade_accounts, modified_derivez_accounts]
-    );
+    /** This function is used to group the available MT5 accounts by market type. */
+    const grouped_mt5_available_accounts = useMemo(() => {
+        return modified_mt5_available_accounts?.reduce((acc, account) => {
+            const { market_type } = account;
+            const marketType = market_type as keyof typeof acc;
+            const marketTypeArray = acc[marketType] || (acc[marketType] = []);
+            marketTypeArray.push(account);
+            return acc;
+        }, {} as Record<string, typeof modified_mt5_available_accounts>);
+    }, [modified_mt5_available_accounts]);
 
     return {
-        /** List of all created other CFD accounts */
-        data,
-        ...{ ...derivez_rest, ...dxtrade_rest },
+        /** The available MT5 accounts grouped by market type */
+        data: grouped_mt5_available_accounts,
+        ...rest,
     };
 };
 
-export default useTradingPlatformAccounts;
+export default useTradingPlatformAvailableAccounts;
