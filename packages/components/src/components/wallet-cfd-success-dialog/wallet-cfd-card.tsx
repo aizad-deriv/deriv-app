@@ -13,13 +13,13 @@ const WalletCFDCard = ({ wallet }: { wallet: TWalletCFDCard }) => {
     let app_icon = '';
     switch (type) {
         case 'synthetic':
-            app_icon = 'IcAppstoreDerived';
+            app_icon = 'IcRebrandingDmt5Dashboard';
             break;
         case 'all':
-            app_icon = 'IcAppstoreSwapFree';
+            app_icon = 'IcRebrandingMt5SwapFree';
             break;
         case 'financial':
-            app_icon = 'IcAppstoreFinancial';
+            app_icon = 'IcRebrandingMt5FinancialDashboard';
             break;
         default:
             app_icon = '';
