@@ -11,6 +11,7 @@ export * from './OptionsAndMultipliersListing';
 export * from './SkeletonLoader';
 export * from './ToggleSwitch';
 export * from './TradingAccountCard';
+export * from './WalletActionScreen';
 export * from './WalletCard';
 export * from './WalletCardIcon';
 export * from './WalletCurrencyCard';

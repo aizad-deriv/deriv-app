@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { WalletActionScreen } from '../../../../components';
 import { WalletButton, WalletText } from '../../../../components/Base';
 import { useModal } from '../../../../components/ModalProvider';
 import EmailIcon from '../../../../public/images/change-password-email.svg';
 import MT5PasswordIcon from '../../../../public/images/ic-mt5-password.svg';
-import ContentTemplate from './ContentTemplate';
 
 const MT5ChangePasswordScreens = () => {
     const [activeScreen, setActiveScreen] = useState(0);
@@ -30,12 +30,12 @@ const MT5ChangePasswordScreens = () => {
                 </WalletText>
             ),
             button: (
-                <>
+                <div className='wallets-change-password__content__btn'>
                     {/* TODO: Double confirm with the designers or QA on the behavior of the Cancel button*/}
                     <WalletButton onClick={() => hide()} size='lg' text='Cancel' variant='outlined' />
                     {/* TODO: Append logic send email for password reset to Confirm Button */}
                     <WalletButton onClick={handleClick} size='lg' text='Confirm' />
-                </>
+                </div>
             ),
             headingText: 'Confirm to change your Deriv MT5 password',
             icon: <MT5PasswordIcon />,
@@ -53,11 +53,11 @@ const MT5ChangePasswordScreens = () => {
     ];
 
     return (
-        <ContentTemplate
-            bodyText={ChangePasswordScreens[activeScreen].bodyText}
-            button={ChangePasswordScreens[activeScreen].button}
-            headingText={ChangePasswordScreens[activeScreen].headingText}
+        <WalletActionScreen
+            description={ChangePasswordScreens[activeScreen].bodyText}
             icon={ChangePasswordScreens[activeScreen].icon}
+            renderButtons={() => ChangePasswordScreens[activeScreen].button}
+            title={ChangePasswordScreens[activeScreen].headingText}
         />
     );
 };
