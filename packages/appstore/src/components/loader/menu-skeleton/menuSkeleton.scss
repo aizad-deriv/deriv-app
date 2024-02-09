@@ -1,0 +1,21 @@
+@import '../skeletonLoader.scss';
+
+.menu-skeleton-loader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    @include mobile {
+        display: none;
+    }
+    &__icon {
+        height: 16px;
+        border-radius: $BORDER_RADIUS;
+        width: 16px;
+    }
+    &__title {
+        height: 24px;
+        border-radius: $BORDER_RADIUS;
+        width: 56px;
+    }
+}

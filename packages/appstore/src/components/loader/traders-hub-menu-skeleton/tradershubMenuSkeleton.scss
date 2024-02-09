@@ -1,0 +1,25 @@
+@import '../skeletonLoader.scss';
+
+.tradershub-skeleton-loader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    &__icon {
+        height: 16px;
+        border-radius: $BORDER_RADIUS;
+        width: 16px;
+        @include mobile {
+            display: none;
+        }
+    }
+    &__title {
+        height: 24px;
+        border-radius: $BORDER_RADIUS;
+        width: 92px;
+
+        @include mobile {
+            width: 48px;
+            height: 16px;
+        }
+    }
+}
