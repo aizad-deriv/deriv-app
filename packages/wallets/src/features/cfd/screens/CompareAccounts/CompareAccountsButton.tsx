@@ -37,7 +37,7 @@ type TCompareAccountButton = {
 
 const CompareAccountsButton = ({ isAccountAdded, marketType, platform, shortCode }: TCompareAccountButton) => {
     const history = useHistory();
-    const { show } = useModal();
+    const { setModalState, show } = useModal();
 
     const switchWalletAccount = useWalletAccountSwitcher();
     const { data: accountSettings } = useSettings();
@@ -122,6 +122,7 @@ const CompareAccountsButton = ({ isAccountAdded, marketType, platform, shortCode
             });
         }
         if (platform === CFD_PLATFORMS.MT5) {
+            setModalState('selectedJurisdiction', activeWallet?.landing_company_name);
             if (isAccountStatusVerified) {
                 show(<MT5PasswordModal marketType={marketType ?? 'synthetic'} platform={platform} />);
             } else {
