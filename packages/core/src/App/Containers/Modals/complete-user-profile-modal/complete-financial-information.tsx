@@ -221,7 +221,6 @@ const CompleteFinancialAssessment = observer(
         ) => {
             try {
                 const settings_payload = {
-                    employment_status: getTextFromKey('employment_status', values.employment_status as string),
                     account_opening_reason: values.account_opening_reason,
                     tax_residence: taxResidenceItem(values.tax_residence)?.value || values.tax_residence,
                     tax_identification_number: values.tax_identification_number,
@@ -928,7 +927,7 @@ const CompleteFinancialAssessment = observer(
                                                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                                                     setFieldValue('company', e.target.value, false);
                                                                 }}
-                                                                value={values.company}
+                                                                value={values.company ?? ''}
                                                             />
                                                             -
                                                             <FormInputField
@@ -940,7 +939,7 @@ const CompleteFinancialAssessment = observer(
                                                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                                                     setFieldValue('position', e.target.value, false);
                                                                 }}
-                                                                value={values.position}
+                                                                value={values.position ?? ''}
                                                             />
                                                         </div>
                                                     ) : (
