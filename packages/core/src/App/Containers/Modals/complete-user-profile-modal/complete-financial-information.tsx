@@ -230,6 +230,10 @@ const CompleteFinancialAssessment = observer(
                 if (values.no_tax_information) {
                     delete settings_payload.tax_residence;
                     delete settings_payload.tax_identification_number;
+                    (settings_payload as Record<string, unknown>).employment_status = getTextFromKey(
+                        'employment_status',
+                        values.employment_status as string
+                    );
                 }
 
                 if (isFieldDisabled('tax_residence')) {
