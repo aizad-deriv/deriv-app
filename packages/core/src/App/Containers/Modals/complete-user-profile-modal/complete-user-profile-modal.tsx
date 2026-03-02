@@ -25,7 +25,7 @@ const CompleteUserProfileModal = observer(
         const [is_showing_missing_info_form, setShowInfoForm] = useState(false);
 
         const { client, ui } = useStore();
-        const { account_settings, residence, has_active_real_account } = client;
+        const { account_settings, residence, has_active_real_account, updateAccountStatus } = client;
         const { is_complete_user_profile_modal_open, setShouldShowCompleteUserProfileModal } = ui;
 
         const { data: residenceList } = useResidenceList();
@@ -105,6 +105,7 @@ const CompleteUserProfileModal = observer(
             }
             // All completed
             setShouldShowCompleteUserProfileModal(false);
+            updateAccountStatus();
         };
 
         const getButtonLabel = () => {
