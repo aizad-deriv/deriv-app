@@ -141,7 +141,6 @@ const AppModals = observer(() => {
 
     const no_currency = !has_set_currency || (!is_virtual && !currency);
     const should_update_fa = account_status?.status?.includes('update_fa');
-    const financial_assessment_not_complete = account_status?.status?.includes('financial_assessment_not_complete');
 
     const { citizen, date_of_birth, address_line_1, address_city } = account_settings;
 
@@ -152,7 +151,7 @@ const AppModals = observer(() => {
         has_active_real_account &&
         (!citizen || !date_of_birth || !address_line_1 || !address_city || no_currency);
 
-    const missing_fa = financial_assessment_not_complete && should_update_fa && is_eu_user && has_active_real_account;
+    const missing_fa = should_update_fa && is_eu_user && has_active_real_account;
 
     React.useEffect(() => {
         if (is_tnc_needed) {
@@ -186,7 +185,6 @@ const AppModals = observer(() => {
         is_client_store_initialized,
         setShouldShowCompleteUserProfileModal,
         is_tnc_update_modal_open,
-        financial_assessment_not_complete,
         account_status,
     ]);
 
