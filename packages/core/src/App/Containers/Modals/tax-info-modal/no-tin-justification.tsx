@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from '@deriv/components';
 import { Localize } from '@deriv/translations';
 
-import { NO_TIN_JUSTIFICATION_OPTIONS } from './tax-info-options-list';
+import { getNoTinJustificationOptions } from './tax-info-options-list';
 
 import './tax-info-modal.scss';
 
@@ -22,6 +22,7 @@ const NoTinJustification = ({
     onSelect,
     onOtherReasonChange,
 }: TNoTinJustificationProps) => {
+    const options = getNoTinJustificationOptions();
     return (
         <div>
             <hr className='tax-info-modal__divider' />
@@ -29,7 +30,7 @@ const NoTinJustification = ({
                 <Localize i18n_default_text="Tell us why you don't have a tax identification number (TIN)." />
             </Text>
             <div className='tax-info-modal__options-list'>
-                {NO_TIN_JUSTIFICATION_OPTIONS.map(option => {
+                {options.map(option => {
                     const is_selected = selected_key === option.key;
                     return (
                         <React.Fragment key={option.key}>
@@ -44,13 +45,7 @@ const NoTinJustification = ({
                                     }
                                 }}
                             >
-                                <Text size='s'>
-                                    {option.is_other ? (
-                                        <Localize i18n_default_text='I am otherwise unable to obtain a TIN or equivalent, and will provide further explanation.' />
-                                    ) : (
-                                        option.value
-                                    )}
-                                </Text>
+                                <Text size='s'>{option.value}</Text>
                             </div>
                             {is_selected && option.is_other && (
                                 <div className='tax-info-modal__textarea tax-info-modal__bottom-margin'>

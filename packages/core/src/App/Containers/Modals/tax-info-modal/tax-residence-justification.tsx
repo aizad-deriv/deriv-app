@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from '@deriv/components';
 import { Localize } from '@deriv/translations';
 
-import { TAX_RESIDENCE_JUSTIFICATION_OPTIONS } from './tax-info-options-list';
+import { getTaxResidenceJustificationOptions } from './tax-info-options-list';
 
 import './tax-info-modal.scss';
 
@@ -22,6 +22,7 @@ const TaxResidenceJustification = ({
     onSelect,
     onOtherReasonChange,
 }: TTaxResidenceJustificationProps) => {
+    const options = getTaxResidenceJustificationOptions();
     return (
         <div>
             <div className='tax-info-modal__mismatch-info'>
@@ -30,7 +31,7 @@ const TaxResidenceJustification = ({
                 </Text>
             </div>
             <div className='tax-info-modal__options-list'>
-                {TAX_RESIDENCE_JUSTIFICATION_OPTIONS.map(option => {
+                {options.map(option => {
                     const is_selected = selected_key === option.key;
                     return (
                         <React.Fragment key={option.key}>
@@ -45,9 +46,7 @@ const TaxResidenceJustification = ({
                                     }
                                 }}
                             >
-                                <Text size='s'>
-                                    {option.is_other ? <Localize i18n_default_text='Other' /> : option.value}
-                                </Text>
+                                <Text size='s'>{option.value}</Text>
                             </div>
                             {is_selected && option.is_other && (
                                 <div className='tax-info-modal__textarea tax-info-modal__bottom-margin'>
