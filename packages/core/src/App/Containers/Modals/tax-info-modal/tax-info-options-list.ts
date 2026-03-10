@@ -1,9 +1,9 @@
 import { localize } from '@deriv/translations';
 
 /**
- * Static options for No TIN Justification.
+ * Options for justification dropdowns.
  * key: sent to API as-is (English)
- * value: displayed to user (to be wrapped in Localize except for 'other' which uses a special key)
+ * value: displayed to user (translated at runtime via getters)
  */
 export type TJustificationOption = {
     key: string;
@@ -11,7 +11,12 @@ export type TJustificationOption = {
     is_other?: boolean;
 };
 
-export const NO_TIN_JUSTIFICATION_OPTIONS: TJustificationOption[] = [
+/**
+ * Returns No TIN justification options with translated labels.
+ * Call from components so labels update when language changes.
+ * Uses literal strings in localize() so i18n extraction can find them.
+ */
+export const getNoTinJustificationOptions = (): TJustificationOption[] => [
     {
         key: 'I am not legally required to obtain a TIN from the specified country.',
         value: localize('I am not legally required to obtain a TIN from the specified country.'),
@@ -31,7 +36,12 @@ export const NO_TIN_JUSTIFICATION_OPTIONS: TJustificationOption[] = [
     },
 ];
 
-export const TAX_RESIDENCE_JUSTIFICATION_OPTIONS: TJustificationOption[] = [
+/**
+ * Returns tax residence justification options with translated labels.
+ * Call from components so labels update when language changes.
+ * Uses literal strings in localize() so i18n extraction can find them.
+ */
+export const getTaxResidenceJustificationOptions = (): TJustificationOption[] => [
     {
         key: 'I am temporarily living abroad (assignment/secondment/extended stay) and expect to return',
         value: localize('I am temporarily living abroad (assignment/secondment/extended stay) and expect to return'),
@@ -62,7 +72,27 @@ export const TAX_RESIDENCE_JUSTIFICATION_OPTIONS: TJustificationOption[] = [
     },
     {
         key: 'other',
-        value: 'Other',
+        value: localize('Other'),
         is_other: true,
     },
+];
+
+/** Static options for key lookup (e.g. resolveJustificationKey). Keys only; value is English default. */
+export const NO_TIN_JUSTIFICATION_OPTIONS: TJustificationOption[] = [
+    { key: 'I am not legally required to obtain a TIN from the specified country.', value: '' },
+    { key: 'I am not required to disclose a TIN under the laws of the specified country.', value: '' },
+    { key: 'The specified country does not issue TINs to its residents.', value: '' },
+    { key: 'other', value: '', is_other: true },
+];
+
+/** Static options for key lookup (e.g. resolveJustificationKey). Keys only; value is English default. */
+export const TAX_RESIDENCE_JUSTIFICATION_OPTIONS: TJustificationOption[] = [
+    { key: 'I am temporarily living abroad (assignment/secondment/extended stay) and expect to return', value: '' },
+    { key: 'I recently moved and my tax residence is in transition', value: '' },
+    { key: 'I am tax resident in more than one country', value: '' },
+    { key: 'I live in one country but work primarily in another (cross-border/rotational work)', value: '' },
+    { key: 'I am a student/trainee abroad and remain tax resident elsewhere', value: '' },
+    { key: 'I am posted overseas by my employer/government and remain tax resident in my home country', value: '' },
+    { key: 'I am subject to taxation based on citizenship or similar rules (e.g., US citizen)', value: '' },
+    { key: 'other', value: '', is_other: true },
 ];
